@@ -13,7 +13,7 @@ app.get("/", function(req, res) {
         if (err) log(err);
         var html = "<html><head><link rel='stylesheet' href='style.css'/><link href='Caramel.css' rel='stylesheet'/></head><body><h1>Kurisu's Files</h1><hr>";
         for (var folder in files) {
-            if (folder.indexOf(".") == -1) {
+            if (files[folder].indexOf(".") == -1) {
                 html = html + "<span id='folder'><i class='fa fa-folder'></i>&nbsp;<a href='/folder?f=" + files[folder] + "'>" + files[folder] + "</a></span><br>";
             }
         }
