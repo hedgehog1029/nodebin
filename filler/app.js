@@ -9,9 +9,9 @@ var log = function(msg) {
 }
 
 app.get("/", function(req, res) {
+    res.set("Content-Type", "text/html");
     fs.readdir(__dirname, function(err, files) {
         if (err) log(err);
-        res.set("text/html");
         res.send("<html><head><link rel='stylesheet' href='style.css' /></head><body>");
         res.send("<h1>Kurisu~ Files</h1>");
         for (var file in files) {
