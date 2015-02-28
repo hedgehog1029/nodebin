@@ -37,7 +37,7 @@ app.get("/folder", function(req, res) {
 app.get("/up", function(req, res) {
     dir(previousdir, function(html) {
         currentdir = previousdir;
-        previousdir = currentdir.substring(currentdir.lastIndexOf("/"), currentdir.length);
+        previousdir = currentdir.substring(0, currentdir.lastIndexOf("/"));
         res.send(html);
     });
 });
