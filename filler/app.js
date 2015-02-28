@@ -63,7 +63,7 @@ function dir(name, callback) {
     fs.readdir(name, function(err, files, isRoot) {
         if (err) log(err);
         html = '<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="style.css"><link href="Caramel.css" rel="stylesheet"></head><body><div class="container">' + "<h1>/public_html</h1><hr>";
-        if (!isRoot) {
+        if (isRoot == false) {
             html = html + "<span id='folder'><a href='/up'>..</a></span><br>";
         }
         for (var folder in files) {
