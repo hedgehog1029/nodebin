@@ -10,8 +10,6 @@ var log = function(msg) {
 }
 
 app.get("/", function(req, res) {
-    log("served root");
-
     dir(__dirname, function(html) {
         res.send(html);
     });
@@ -22,8 +20,6 @@ app.get("/download", function(req, res) {
 });
 
 app.get("/folder", function(req, res) {
-    log("served a dir");
-
     app.use('/folder', express.static(__dirname + "/" + req.query.dir));
     dir(__dirname + "/" + req.query.dir, function(html) {
         res.send(html);
@@ -37,10 +33,11 @@ app.get("/irc", function(req, res) {
 app.use('/', express.static(__dirname + '/'));
 
 app.listen(8080);
+log("started server");
 
 function dir(name, callback) {
     var html;
-    fs.readdir(__dirname, function(err, files) {
+    fs.readdir(name, function(err, files) {
         if (err) log(err);
         html = '<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="style.css"><link href="Caramel.css" rel="stylesheet"></head><body><div class="container">' + "<h1>/public_html</h1><hr>";
         for (var folder in files) {
