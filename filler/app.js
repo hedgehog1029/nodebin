@@ -26,7 +26,7 @@ app.get("/download", function(req, res) {
 });
 
 app.get("/folder", function(req, res) {
-    app.use('/folder', express.static(currentdir + "/" + req.query.dir));
+    //app.use('/folder', express.static(currentdir + "/" + req.query.dir));
     dir(currentdir + "/" + req.query.dir, function(html) {
         res.send(html);
         previousdir = currentdir;
@@ -53,7 +53,7 @@ app.get("/irc", function(req, res) {
     res.redirect("http://dev.kurisubrooks.com:8080/");
 });
 
-app.use('/', express.static(__dirname + '/'));
+//app.use('/', express.static(__dirname + '/'));
 
 app.listen(8080);
 log("started server");
