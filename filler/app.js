@@ -34,6 +34,14 @@ app.get("/folder", function(req, res) {
     });
 });
 
+app.get("/up", function(req, res) {
+    dir(previousdir, function(html) {
+        currentdir = previousdir;
+        previousdir = currentdir.substring(currentdir.lastIndexOf("/"), currentdir.length);
+        res.send(html);
+    });
+});
+
 app.get("/irc", function(req, res) {
     res.redirect("http://dev.kurisubrooks.com:8080/");
 });
