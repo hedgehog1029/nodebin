@@ -9,6 +9,8 @@ var currentdir = __dirname;
 var previousdir = __dirname;
 var relativedir = "";
 
+var isRoot;
+
 var log = function(msg) {
     console.log("filler > ".red + msg);
 }
@@ -21,8 +23,9 @@ app.get("/", function(req, res) {
     relativedir = "";
 
     dir(currentdir, function(html) {
+        isRoot = true;
         res.send(html);
-    }, true);
+    });
 });
 
 app.get("/download", function(req, res) {
@@ -34,10 +37,11 @@ app.get("/folder", function(req, res) {
 
     relativedir = relativedir + "/" + req.query.dir;
     dir(currentdir + "/" + req.query.dir, function(html) {
+        isRoot = false;
         res.send(html);
         previousdir = currentdir;
         currentdir = currentdir + "/" + req.query.dir;
-    }, false);
+    });
 });
 
 app.get("/up", function(req, res) {
@@ -58,7 +62,7 @@ app.get("/up", function(req, res) {
         currentdir = previousdir;
         previousdir = currentdir.substring(0, currentdir.lastIndexOf("/"));
         res.send(html);
-    }, isRoot);
+    });
 });
 
 app.get("/irc", function(req, res) {
@@ -72,7 +76,7 @@ log("started server");
 
 function dir(name, callback) {
     var html;
-    fs.readdir(name, function(err, files, isRoot) {
+    fs.readdir(name, function(err, files) {
         if (err) log(err);
         html = '<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="/f/style.css"><link href="/f/Caramel.css" rel="stylesheet"></head><body><div class="container">' + "<h1>/public_html" + relativedir + "</h1><hr>";
         if (isRoot == false) {
