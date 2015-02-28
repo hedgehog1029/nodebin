@@ -47,6 +47,11 @@ app.get("/folder", function(req, res) {
 app.get("/up", function(req, res) {
     log("up req served");
 
+    if (relativedir == "") {
+        isRoot = true;
+        return;
+    }
+
     if (relativedir.substring(0, 2).indexOf("/") == -1) {
         log("refusing because root");
         isRoot = true;
