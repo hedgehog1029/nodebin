@@ -11,18 +11,18 @@ var log = function(msg) {
 app.get("/", function(req, res) {
     fs.readdir(__dirname, function(err, files) {
         if (err) log(err);
-        var html = '<html><head><link rel="stylesheet" href="https://raw.githubusercontent.com/hedgehog1029/nodebin/master/filler/style.css"><link href="http://caramel.ga/Caramel.css" rel="stylesheet"></head><body>' + "<h1>Kurisu's Files</h1><hr>";
+        var html = '<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="style.css"><link href="Caramel.css" rel="stylesheet"></head><body><div class="container">' + "<h1>/public_html</h1><hr>";
         for (var folder in files) {
             if (files[folder].indexOf(".") == -1) {
-                html = html + "<span id='folder'><i class='fa fa-folder'></i>&nbsp;<a href='/folder?f=" + files[folder] + "'>" + files[folder] + "</a></span><br>";
+                html = html + "<span id='folder'><i class='fa fa-fw fa-folder'></i>&nbsp;<a href='/folder?f=" + files[folder] + "'>" + files[folder] + "</a></span><br>";
             }
         }
         for (var file in files) {
             if (files[file].indexOf(".") != -1) {
-                html = html + "<span id='file'><i class='fa fa-file'></i>&nbsp;<a href='/download?file=" + files[file] + "'>" + files[file] + "</a></span><br>";
+                html = html + "<span id='file'><i class='fa fa-fw fa-file'></i>&nbsp;<a href='/download?file=" + files[file] + "'>" + files[file] + "</a></span><br>";
             }
         }
-        html = html + "</body></html>";
+        html = html + "</div></body></html>";
         res.send(html);
     });
 });

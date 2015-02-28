@@ -1,15 +1,19 @@
 #file {
-	font-size: 18px;
+    font-size: 18px;
 }
 
 #folder {
-	font-size: 18px;
+    font-size: 18px;
+}
+
+.container {
+    padding: 0 50px;
 }
 
 .fa-file {
-	color: #E64D42;
+    color: #E64D42;
 }
 
 .fa-folder {
-	color: #00AEEF;
+    color: #00AEEF;
 }
