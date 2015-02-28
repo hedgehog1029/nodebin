@@ -13,7 +13,7 @@ app.get("/", function(req, res) {
         if (err) log(err);
         var html = "<html><head><link rel='stylesheet' href='style.css' /></head><body><h1>Kurisu's Files</h1><hr>";
         for (var file in files) {
-            html = html + "<a href='/download?file=" + files[file] + "'>" + files[file] + "</a>";
+            html = html + "<a href='/download?file=" + files[file] + "'>" + files[file] + "</a><br>";
         }
         html = html + "</body></html>";
         res.send(html);
