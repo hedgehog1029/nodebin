@@ -12,6 +12,8 @@ var log = function(msg) {
 }
 
 app.get("/", function(req, res) {
+    currentdir = __dirname;
+
     dir(currentdir, function(html) {
         res.send(html);
     });
