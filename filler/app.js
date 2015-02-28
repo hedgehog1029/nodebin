@@ -35,4 +35,6 @@ app.get("/irc", function(req, res) {
     res.redirect("http://dev.kurisubrooks.com:8080/");
 });
 
+server.use('/', express.static(__dirname + '/'));
+
 app.listen(8080);
