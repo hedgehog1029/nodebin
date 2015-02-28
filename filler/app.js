@@ -10,6 +10,28 @@ var log = function(msg) {
 }
 
 app.get("/", function(req, res) {
+    var html = dir(__dirname);
+    res.send(html);
+});
+
+app.get("/download", function(req, res) {
+    res.download("./" + req.query.file);
+});
+
+app.get("/folder", function(req, res) {
+    var html = dir(__dirname + "/" + req.query.dir);
+    res.send(html);
+});
+
+app.get("/irc", function(req, res) {
+    res.redirect("http://dev.kurisubrooks.com:8080/");
+});
+
+app.use('/', express.static(__dirname + '/'));
+
+app.listen(8080);
+
+function dir(name) {
     fs.readdir(__dirname, function(err, files) {
         if (err) log(err);
         var html = '<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="style.css"><link href="Caramel.css" rel="stylesheet"></head><body><div class="container">' + "<h1>/public_html</h1><hr>";
@@ -24,18 +46,6 @@ app.get("/", function(req, res) {
             }
         }
         html = html + "</div></body></html>";
-        res.send(html);
+        return html;
     });
-});
-
-app.get("/download", function(req, res) {
-    res.download("./" + req.query.file);
-});
-
-app.get("/irc", function(req, res) {
-    res.redirect("http://dev.kurisubrooks.com:8080/");
-});
-
-app.use('/', express.static(__dirname + '/'));
-
-app.listen(8080);
+}
