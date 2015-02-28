@@ -10,6 +10,7 @@ var previousdir = __dirname;
 var relativedir = "";
 
 var isRoot;
+var away;
 
 var log = function(msg) {
     console.log("filler > ".red + msg);
@@ -21,6 +22,8 @@ app.get("/", function(req, res) {
     previousdir = currentdir;
     currentdir = __dirname;
     relativedir = "";
+
+    away = 0;
 
     isRoot = true;
     dir(currentdir, function(html) {
@@ -36,6 +39,7 @@ app.get("/folder", function(req, res) {
     log("folder served");
 
     relativedir = relativedir + "/" + req.query.dir;
+    away = away + 1;
     isRoot = false;
     dir(currentdir + "/" + req.query.dir, function(html) {
         res.send(html);
@@ -47,12 +51,9 @@ app.get("/folder", function(req, res) {
 app.get("/up", function(req, res) {
     log("up req served");
 
-    if (relativedir == "") {
-        isRoot = true;
-        return;
-    }
+    away = away - 1;
 
-    if (relativedir.substring(0, 2).indexOf("/") == -1) {
+    if (away == 0) {
         log("refusing because root");
         isRoot = true;
         relativedir = "";
