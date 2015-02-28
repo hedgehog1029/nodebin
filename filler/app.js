@@ -22,8 +22,8 @@ app.get("/", function(req, res) {
     currentdir = __dirname;
     relativedir = "";
 
+    isRoot = true;
     dir(currentdir, function(html) {
-        isRoot = true;
         res.send(html);
     });
 });
@@ -36,8 +36,8 @@ app.get("/folder", function(req, res) {
     log("folder served");
 
     relativedir = relativedir + "/" + req.query.dir;
+    isRoot = false;
     dir(currentdir + "/" + req.query.dir, function(html) {
-        isRoot = false;
         res.send(html);
         previousdir = currentdir;
         currentdir = currentdir + "/" + req.query.dir;
