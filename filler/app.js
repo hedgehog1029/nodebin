@@ -14,6 +14,8 @@ var log = function(msg) {
 }
 
 app.get("/", function(req, res) {
+    log("root served");
+
     previousdir = currentdir;
     currentdir = __dirname;
     relativedir = "";
@@ -28,7 +30,8 @@ app.get("/download", function(req, res) {
 });
 
 app.get("/folder", function(req, res) {
-    //app.use('/folder', express.static(currentdir + "/" + req.query.dir));
+    log("folder served");
+
     relativedir = relativedir + "/" + req.query.dir;
     dir(currentdir + "/" + req.query.dir, function(html) {
         res.send(html);
@@ -38,11 +41,15 @@ app.get("/folder", function(req, res) {
 });
 
 app.get("/up", function(req, res) {
+    log("up req served");
+
     var isRoot;
     if (relativedir.substring(0, 2).indexOf("/") == -1) {
+        log("refusing because root");
         isRoot = true;
         relativedir = "";
     } else {
+        log("allowing because not root");
         isRoot = false;
         relativedir = relativedir.substring(0, relativedir.lastIndexOf("/"));
     }
