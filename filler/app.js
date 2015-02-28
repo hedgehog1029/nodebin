@@ -39,7 +39,7 @@ app.get("/folder", function(req, res) {
 
 app.get("/up", function(req, res) {
     var isRoot;
-    if (previousdir == __dirname) {
+    if (relativedir.substring(0, 2).indexOf("/") == -1) {
         isRoot = true;
         relativedir = "";
     } else {
