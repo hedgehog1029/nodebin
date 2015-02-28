@@ -20,6 +20,7 @@ app.get("/download", function(req, res) {
 });
 
 app.get("/folder", function(req, res) {
+    app.use('/folder', express.static(__dirname + "/" + req.query.dir));
     dir(__dirname + "/" + req.query.dir, function(html) {
         res.send(html);
     });
