@@ -32,9 +32,10 @@ app.use('/', express.static(__dirname + '/'));
 app.listen(8080);
 
 function dir(name) {
+    var html;
     fs.readdir(__dirname, function(err, files) {
         if (err) log(err);
-        var html = '<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="style.css"><link href="Caramel.css" rel="stylesheet"></head><body><div class="container">' + "<h1>/public_html</h1><hr>";
+        html = '<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="style.css"><link href="Caramel.css" rel="stylesheet"></head><body><div class="container">' + "<h1>/public_html</h1><hr>";
         for (var folder in files) {
             if (files[folder].indexOf(".") == -1) {
                 html = html + "<span id='folder'><i class='fa fa-fw fa-folder'></i>&nbsp;<a href='/folder?dir=" + files[folder] + "'>" + files[folder] + "</a></span><br>";
@@ -46,6 +47,6 @@ function dir(name) {
             }
         }
         html = html + "</div></body></html>";
-        return html;
     });
+    return html;
 }
