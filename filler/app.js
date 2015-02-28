@@ -11,7 +11,7 @@ var log = function(msg) {
 app.get("/", function(req, res) {
     fs.readdir(__dirname, function(err, files) {
         if (err) log(err);
-        var html = '<html><head><link rel="stylesheet" href="https://raw.githubusercontent.com/hedgehog1029/nodebin/master/filler/style.css"><link href="https://raw.githubusercontent.com/hedgehog1029/nodebin/master/filler/Caramel.css" rel="stylesheet"></head><body>' + "<h1>Kurisu's Files</h1><hr>";
+        var html = '<html><head><link rel="stylesheet" href="https://raw.githubusercontent.com/hedgehog1029/nodebin/master/filler/style.css"><link href="http://caramel.ga/Caramel.css" rel="stylesheet"></head><body>' + "<h1>Kurisu's Files</h1><hr>";
         for (var folder in files) {
             if (files[folder].indexOf(".") == -1) {
                 html = html + "<span id='folder'><i class='fa fa-folder'></i>&nbsp;<a href='/folder?f=" + files[folder] + "'>" + files[folder] + "</a></span><br>";
