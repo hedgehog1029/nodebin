@@ -3,6 +3,7 @@ var express = require("express"),
     fs = require("fs");
 
 var app = express();
+var blacklist = ["app.js", "package.json"];
 
 var log = function(msg) {
     console.log("filler >".red + msg);
@@ -18,7 +19,7 @@ app.get("/", function(req, res) {
             }
         }
         for (var file in files) {
-            if (files[file].indexOf(".") != -1) {
+            if (files[file].indexOf(".") != -1 && blacklist.indexOf(files[file]) == -1) {
                 html = html + "<span id='file'><i class='fa fa-fw fa-file'></i>&nbsp;<a href='/download?file=" + files[file] + "'>" + files[file] + "</a></span><br>";
             }
         }
