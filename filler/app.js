@@ -46,7 +46,7 @@ app.get("/up", function(req, res) {
         currentdir = previousdir;
         previousdir = currentdir.substring(0, currentdir.lastIndexOf("/"));
         res.send(html);
-    }, false);
+    }, isRoot);
 });
 
 app.get("/irc", function(req, res) {
