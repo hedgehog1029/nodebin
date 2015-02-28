@@ -5,12 +5,14 @@ var express = require("express"),
 var app = express();
 var blacklist = ["app.js", "package.json"];
 
+var currentdir = __dirname;
+
 var log = function(msg) {
-    console.log("filler >".red + msg);
+    console.log("filler > ".red + msg);
 }
 
 app.get("/", function(req, res) {
-    dir(__dirname, function(html) {
+    dir(currentdir, function(html) {
         res.send(html);
     });
 });
@@ -20,9 +22,10 @@ app.get("/download", function(req, res) {
 });
 
 app.get("/folder", function(req, res) {
-    app.use('/folder', express.static(__dirname + "/" + req.query.dir));
-    dir(__dirname + "/" + req.query.dir, function(html) {
+    app.use('/folder', express.static(currentdir + "/" + req.query.dir));
+    dir(currentdir + "/" + req.query.dir, function(html) {
         res.send(html);
+        currentdir = currentdir + "/" + req.query.dir;
     });
 });
 
