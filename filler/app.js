@@ -29,11 +29,11 @@ app.get("/download", function(req, res) {
 
 app.get("/folder", function(req, res) {
     //app.use('/folder', express.static(currentdir + "/" + req.query.dir));
+    relativedir = relativedir + "/" + req.query.dir;
     dir(currentdir + "/" + req.query.dir, function(html) {
         res.send(html);
         previousdir = currentdir;
         currentdir = currentdir + "/" + req.query.dir;
-        relativedir = relativedir + "/" + req.query.dir;
     }, false);
 });
 
@@ -67,7 +67,7 @@ function dir(name, callback) {
     var html;
     fs.readdir(name, function(err, files, isRoot) {
         if (err) log(err);
-        html = '<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="/f/style.css"><link href="/f/Caramel.css" rel="stylesheet"></head><body><div class="container">' + "<h1>/public_html</h1><hr>";
+        html = '<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="/f/style.css"><link href="/f/Caramel.css" rel="stylesheet"></head><body><div class="container">' + "<h1>/public_html" + relativedir + "</h1><hr>";
         if (isRoot == false) {
             html = html + "<span id='folder'><a href='/up'>..</a></span><br>";
         }
