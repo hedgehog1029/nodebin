@@ -10,7 +10,7 @@ var log = function(msg) {
 
 app.get("/", function(req, res) {
     fs.readdir(__dirname, function(err, files) {
-        if (err) log(err) return;
+        if (err) log(err);
 
     });
 });
