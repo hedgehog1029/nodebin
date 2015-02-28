@@ -53,7 +53,7 @@ app.get("/irc", function(req, res) {
     res.redirect("http://dev.kurisubrooks.com:8080/");
 });
 
-app.use('/', express.static(__dirname + '/'));
+app.use('/f/', express.static(__dirname + '/'));
 
 app.listen(8080);
 log("started server");
@@ -73,7 +73,7 @@ function dir(name, callback) {
         }
         for (var file in files) {
             if (files[file].indexOf(".") != -1 && blacklist.indexOf(files[file]) == -1) {
-                html = html + "<span id='file'><i class='fa fa-fw fa-file'></i>&nbsp;<a href='/" + files[file] + "'>" + files[file] + "</a></span><br>";
+                html = html + "<span id='file'><i class='fa fa-fw fa-file'></i>&nbsp;<a href='/f/" + files[file] + "'>" + files[file] + "</a></span><br>";
             }
         }
         html = html + "</div></body></html>";
