@@ -11,9 +11,9 @@ var log = function(msg) {
 app.get("/", function(req, res) {
     fs.readdir(__dirname, function(err, files) {
         if (err) log(err);
-        var html = "<html><head><link rel='stylesheet' href='style.css' /></head><body><h1>Kurisu's Files</h1>";
+        var html = "<html><head><link rel='stylesheet' href='style.css' /></head><body><h1>Kurisu's Files</h1><hr>";
         for (var file in files) {
-            html = html + "<hr><a href='/download?file=" + files[file] + "'>" + files[file] + "</a>";
+            html = html + "<a href='/download?file=" + files[file] + "'>" + files[file] + "</a>";
         }
         html = html + "</body></html>";
         res.send(html);
