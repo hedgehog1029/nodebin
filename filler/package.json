@@ -1,0 +1,26 @@
+{
+  "name": "filler",
+  "version": "1.0.0",
+  "description": "A simple Express routing system.",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/hedgehog1029/nodebin"
+  },
+  "keywords": [
+    "express"
+  ],
+  "author": "hedgehog1029 / Alchemist",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hedgehog1029/nodebin/issues"
+  },
+  "homepage": "https://github.com/hedgehog1029/nodebin",
+  "dependencies": {
+    "colors": "^1.0.3",
+    "express": "^4.12.0"
+  }
+}
