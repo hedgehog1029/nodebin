@@ -6,12 +6,14 @@ var app = express();
 var blacklist = ["app.js", "package.json"];
 
 var currentdir = __dirname;
+var previousdir = __dirname;
 
 var log = function(msg) {
     console.log("filler > ".red + msg);
 }
 
 app.get("/", function(req, res) {
+    previousdir = currentdir;
     currentdir = __dirname;
 
     dir(currentdir, function(html) {
@@ -27,6 +29,7 @@ app.get("/folder", function(req, res) {
     app.use('/folder', express.static(currentdir + "/" + req.query.dir));
     dir(currentdir + "/" + req.query.dir, function(html) {
         res.send(html);
+        previousdir = currentdir;
         currentdir = currentdir + "/" + req.query.dir;
     });
 });
@@ -45,6 +48,7 @@ function dir(name, callback) {
     fs.readdir(name, function(err, files) {
         if (err) log(err);
         html = '<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="style.css"><link href="Caramel.css" rel="stylesheet"></head><body><div class="container">' + "<h1>/public_html</h1><hr>";
+        html = html + "<span id='folder'><a href='/up'>..</a></span><br>";
         for (var folder in files) {
             if (files[folder].indexOf(".") == -1) {
                 html = html + "<span id='folder'><i class='fa fa-fw fa-folder'></i>&nbsp;<a href='/folder?dir=" + files[folder] + "'>" + files[folder] + "</a></span><br>";
