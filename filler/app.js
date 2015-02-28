@@ -10,6 +10,8 @@ var log = function(msg) {
 }
 
 app.get("/", function(req, res) {
+    log("served root");
+
     dir(__dirname, function(html) {
         res.send(html);
     });
@@ -20,6 +22,8 @@ app.get("/download", function(req, res) {
 });
 
 app.get("/folder", function(req, res) {
+    log("served a dir");
+
     app.use('/folder', express.static(__dirname + "/" + req.query.dir));
     dir(__dirname + "/" + req.query.dir, function(html) {
         res.send(html);
