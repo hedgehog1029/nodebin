@@ -10,8 +10,9 @@ var log = function(msg) {
 }
 
 app.get("/", function(req, res) {
-    var html = dir(__dirname);
-    res.send(html);
+    dir(__dirname, function(html) {
+        res.send(html);
+    });
 });
 
 app.get("/download", function(req, res) {
@@ -19,8 +20,9 @@ app.get("/download", function(req, res) {
 });
 
 app.get("/folder", function(req, res) {
-    var html = dir(__dirname + "/" + req.query.dir);
-    res.send(html);
+    dir(__dirname + "/" + req.query.dir, function(html) {
+        res.send(html);
+    });
 });
 
 app.get("/irc", function(req, res) {
@@ -31,7 +33,7 @@ app.use('/', express.static(__dirname + '/'));
 
 app.listen(8080);
 
-function dir(name) {
+function dir(name, callback) {
     var html;
     fs.readdir(__dirname, function(err, files) {
         if (err) log(err);
@@ -47,6 +49,6 @@ function dir(name) {
             }
         }
         html = html + "</div></body></html>";
+        callback(html);
     });
-    return html;
 }
