@@ -7,6 +7,7 @@ var blacklist = ["app.js", "package.json"];
 
 var currentdir = __dirname;
 var previousdir = __dirname;
+var relativedir = "";
 
 var log = function(msg) {
     console.log("filler > ".red + msg);
@@ -15,6 +16,7 @@ var log = function(msg) {
 app.get("/", function(req, res) {
     previousdir = currentdir;
     currentdir = __dirname;
+    relativedir = "";
 
     dir(currentdir, function(html) {
         res.send(html);
@@ -31,6 +33,7 @@ app.get("/folder", function(req, res) {
         res.send(html);
         previousdir = currentdir;
         currentdir = currentdir + "/" + req.query.dir;
+        relativedir = relativedir + "/" + req.query.dir;
     }, false);
 });
 
@@ -38,8 +41,10 @@ app.get("/up", function(req, res) {
     var isRoot;
     if (previousdir == __dirname) {
         isRoot = true;
+        relativedir = "";
     } else {
         isRoot = false;
+        relativedir = relativedir.substring(0, relativedir.lastIndexOf("/"));
     }
 
     dir(previousdir, function(html) {
@@ -73,7 +78,7 @@ function dir(name, callback) {
         }
         for (var file in files) {
             if (files[file].indexOf(".") != -1 && blacklist.indexOf(files[file]) == -1) {
-                html = html + "<span id='file'><i class='fa fa-fw fa-file'></i>&nbsp;<a href='/f/" + files[file] + "'>" + files[file] + "</a></span><br>";
+                html = html + "<span id='file'><i class='fa fa-fw fa-file'></i>&nbsp;<a href='/f" + relativedir + "/" + files[file] + "'>" + files[file] + "</a></span><br>";
             }
         }
         html = html + "</div></body></html>";
